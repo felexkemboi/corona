@@ -13,6 +13,9 @@ PARAMS = {'apikey':api_key }
 #r = requests.get(url = URL, params = PARAMS)
 #data = r.json()
 
+#pandas==0.20.3pkg-resources==0.0.0
+
+
 from json import dumps
 
 import pandas as pd
