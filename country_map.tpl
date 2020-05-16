@@ -9,7 +9,7 @@
 <script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js" type="text/javascript" charset="utf-8"></script>
 <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
 </head>
-<title>WeCorona Records Tracking</title>
+<title>Corona Records Tracking</title>
 
 <body style='margin: 0;  padding-top: 20px; padding-bottom: 70px;'>
     <nav style='padding-top: 20px;' class="navbar navbar-centre navbar-default">
@@ -38,7 +38,7 @@
     </div>
     </div>
 </form>
-<p><i><b>Available options </b>: Aruba,&nbsp;&nbsp;Afghanistan,&nbsp;&nbsp;Angola,&nbsp;&nbsp;Anguilla,&nbsp;&nbsp;Albania,&nbsp;&nbsp;Andorra,&nbsp;&nbsp;United Arab Emirates,&nbsp;&nbsp;Argentina,&nbsp;&nbsp;Armenia,&nbsp;&nbsp;Antigua and Barbuda,&nbsp;&nbsp;Australia,&nbsp;&nbsp;Austria,&nbsp;&nbsp;Azerbaijan,&nbsp;&nbsp;Burundi,&nbsp;&nbsp;Belgium</i></p>
+<p><i><b>Available options </b>:Aruba,&nbsp;&nbsp;Afghanistan,&nbsp;&nbsp;Angola,&nbsp;&nbsp;Anguilla,&nbsp;&nbsp;Albania,&nbsp;&nbsp;Andorra,&nbsp;&nbsp;United Arab Emirates,&nbsp;&nbsp;Argentina,&nbsp;&nbsp;Armenia,Antigua and Barbuda,&nbsp;&nbsp;Australia,&nbsp;&nbsp;Austria,&nbsp;&nbsp;Azerbaijan,&nbsp;&nbsp;Burundi,&nbsp;&nbsp;Belgium,&nbsp;&nbsp;Benin,&nbsp;&nbsp;Bonaire Sint Eustatius and Saba,&nbsp;&nbsp;Burkina Faso,&nbsp;&nbsp;Bangladesh,&nbsp;&nbsp;Bulgaria,&nbsp;&nbsp;Bahrain,&nbsp;&nbsp;Bahamas,&nbsp;&nbsp;Bosnia and Herzegovina,&nbsp;&nbsp;Belarus,&nbsp;&nbsp;Belize,&nbsp;&nbsp;Bolivia,&nbsp;&nbsp;Aruba</i></p>
   </div>
 <div style="width: 100%; height: 100%" id="mapContainer"></div>
 
@@ -73,7 +73,7 @@
   // Create an info bubble object at a specific geographic location:
   var bubble = new H.ui.InfoBubble({ lng:  long, lat: lat }, {
                   content: `<div>
-                                <p><b>Country:</b>${data.location}<p>
+                                <p><b>${data.location} - (${data.date})</b><p>
                                 <p><b>Cases:</b>${data.total_cases}</p>
                                 <p><b>New Cases:</b>${data.new_cases}<p>
                                 <p><b>Deaths:</b>${data.total_deaths}</p>

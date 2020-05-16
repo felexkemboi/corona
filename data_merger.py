@@ -1,78 +1,45 @@
-import bottle
-from bottle import route, run, response ,static_file,get, post, request,template,redirect
-import os
-
-
-
-URL = "https://geocode.search.hereapi.com/v1/geocode"
-#location = input("Enter the location here: ") #taking user input
-api_key = 'd7qyuWHVaDSj8__qx-KAVeP1AWzTWQMHFHbEnX0zT7Q' # Acquire from developer.here.com
-PARAMS = {'apikey':api_key }
-
-# sending get request and saving the response as response object
-#r = requests.get(url = URL, params = PARAMS)
-#data = r.json()
-
-#pandas==0.20.3pkg-resources==0.0.0
-
-
-from json import dumps
-
-import pandas as pd
+from petl import fromxml, look,tocsv,fromcsv
 import csv
+import pandas
 
-dicts =  {'location': 'Centre', 'date': '2020-05-15', 'total_cases': '0', 'new_cases': '0', 'total_deaths': '0', 'new_deaths': '0', 'population': '0', 'latitude': '0', 'longitude': '0'}
+xml_records = fromxml('Country_location.xml','tr', 'td')
+countries = ['Aruba','Afghanistan','Angola','Anguilla','Albania','Andorra','United Arab Emirates','Argentina','Armenia','Antigua and Barbuda','Australia','Austria','Azerbaijan','Burundi','Belgium','Benin','Bonaire Sint Eustatius and Saba','Burkina Faso','Bangladesh','Bulgaria','Bahrain','Bahamas','Bosnia and Herzegovina','Belarus','Belize','Bolivia','Aruba']
+#countries = ['Aruba', ' Afghanistan',  'Angola',  'Anguilla',  'Albania',  'Andorra',  'United Arab Emirates',  'Argentina', ' Armenia',  'Australia','Austria','Azerbaijan','Burundi','Belgium']
 
 
-app = application = bottle.default_app()
+countries_xml = []
+records_from_github = []
+new_records = []
 
-_allow_origin = '*'
-_allow_methods = 'PUT, GET, POST, DELETE, OPTIONS'
-_allow_headers = 'Authorization, Origin, Accept, Content-Type, X-Requested-With'
+for item in xml_records:
+    row = list(item)
+    for i in row:
+        if i in countries:
+            countries_xml.append(row)
 
-@app.hook('after_request')
-def enable_cors():
-    '''Add headers to enable CORS'''
 
-    response.headers['Access-Control-Allow-Origin'] = _allow_origin
-    response.headers['Access-Control-Allow-Methods'] = _allow_methods
-    response.headers['Access-Control-Allow-Headers'] = _allow_headers
+with open('from_github.csv', 'r') as read_obj:
 
-'''
-@app.get('/<filepath:path>')
-def server_static(filepath):
-    return static_file(filepath, root='./') '''
+    csv_reader = csv.reader(read_obj)
 
-@app.get('/')
-def home():
+    records_from_github = list(csv_reader)
 
-    global dicts
-    return template('home.tpl',dicts = dicts)
 
-@app.post('/getCountry')
-def getCountry():
-    country = request.forms.get('country')
-    dict = {}
-    global dicts
-    import csv
-    ifile  = open('new.csv', "r")
-    read = csv.reader(ifile)
-    row = [row for row in read if row[0] == country]
-    row = row[0]
-    dict['location'] = row[0]
-    dict['date'] = row[1]
-    dict['total_cases'] = row[2]
-    dict['new_cases'] = row[3]
-    dict['total_deaths'] = row[4]
-    dict['new_deaths'] = row[5]
-    dict['population'] = row[10]
-    dict['latitude'] = row[11]
-    dict['longitude'] = row[12]
-    dicts = dict
-    #response.content_type = 'application/json'
-    redirect("/")
+for i in records_from_github:
+    for j in countries_xml:
+        if j[3] == i[0]:
+            i[11] = j[1]
+            i[12] = j[2]
+            new_records.append(i)
 
-if os.environ.get('APP_LOCATION') == 'heroku':
-    run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
-else:
-    run(host='localhost', port=8000, debug=True)
+
+new_records.insert(0,records_from_github[0])
+
+with open('covid_countries.csv', 'a') as outcsv:
+    #configure writer to write standard csv file
+    writer = csv.writer(outcsv, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
+    writer.writerow(i for i in new_records[0])
+    new_records.pop(0)
+    for item in new_records:
+        #Write item to outcsv
+        writer.writerow(item)
