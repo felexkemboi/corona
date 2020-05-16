@@ -14,9 +14,10 @@
         <button type="submit">Show Country</button>
     </div>
 </form>
-{{ dicts }}
+<p>Available options : Aruba,Afghanistan,Angola,Anguilla,Albania,Andorra,United Arab Emirates,Argentina,Armenia,Antigua and Barbuda,Australia,Austria,Azerbaijan,Burundi,Belgium</p>
+<!--{{ dicts }}
 {{ dicts['latitude'] }}
-{{ dicts['longitude'] }}
+{{ dicts['longitude'] }}-->
   </div>
 <div style="width: 100%; height: 100%" id="mapContainer"></div>
 
@@ -28,8 +29,8 @@
 
       const data = {{!dicts}};
 
-	   const lat = 46.2276; //data.latitude;
-	   const long = 2.2137; // data.longitude;
+	   const lat = data.latitude;
+	   const long = data.longitude;
 
 	// Obtain the default map types from the platform object
       var maptypes = platform.createDefaultLayers();
