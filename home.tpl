@@ -72,7 +72,7 @@
 
   // Create an info bubble object at a specific geographic location:
   var bubble = new H.ui.InfoBubble({ lng:  long, lat: lat }, {
-                  content: '<b> Country:' + data.location + '</b>'
+                  content: '<b> Country: ' + data.location + '</b>'
 
                });
 
