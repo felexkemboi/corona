@@ -3,21 +3,49 @@
 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
 <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"type="text/javascript" charset="utf-8"></script>
 <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
+<title><h3>Welcome to Corona Records Tracking</h3></title>
 
-<body style='margin: 0'>
+<body style='margin: 0;  padding-top: 20px; padding-bottom: 70px;'>
+  <!-- Navbar -->
+    <nav style='padding-top: 20px;' class="navbar navbar-centre navbar-default">
+      <div class="container">
+        <!--<div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Me</a>
+        </div> -->
+        <div class="collapse navbar-collapse">
+          Welcome to my Updates platform
+        </div>
+      </div>
+    </nav>
   <div class="">
     <form method="post" action="/getCountry">
     <div>
-        <label for="country">Country Name:</label>
-         <input type="text" id="country" name="country">
-        <button type="submit">Show Country</button>
+      <div class="container center-block">
+        <div class="row">
+            <form class="col-12">
+                <div class="form-inline">
+                    <div class="col-md-12 form-group">
+                        <label class="col-sm-1 col-form-label">Country</label>
+                        <input style="width:250px;" type="text" id="country" name="country" class="form-control" placeholder="Type the Country's Nmae" class="form-control">
+                        <input type="submit" class="btn btn-info" value="Show Country">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
     </div>
 </form>
 <p>Available options : Aruba,&nbsp;&nbsp;Afghanistan,&nbsp;&nbsp;Angola,&nbsp;&nbsp;Anguilla,&nbsp;&nbsp;Albania,&nbsp;&nbsp;Andorra,&nbsp;&nbsp;United Arab Emirates,&nbsp;&nbsp;Argentina,&nbsp;&nbsp;Armenia,&nbsp;&nbsp;Antigua and Barbuda,&nbsp;&nbsp;Australia,&nbsp;&nbsp;Austria,&nbsp;&nbsp;Azerbaijan,&nbsp;&nbsp;Burundi,&nbsp;&nbsp;Belgium</p>
-<!--{{ dicts }}
-{{ dicts['latitude'] }}
-{{ dicts['longitude'] }}-->
   </div>
 <div style="width: 100%; height: 100%" id="mapContainer"></div>
 
@@ -40,7 +68,7 @@
         document.getElementById('mapContainer'),
         maptypes.vector.normal.map,
         {
-          zoom: 4,
+          zoom: 5,
           center: { lat: lat, lng: long }
         });
 
