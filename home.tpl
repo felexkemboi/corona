@@ -14,7 +14,7 @@
         <button type="submit">Show Country</button>
     </div>
 </form>
-<p>Available options : Aruba,Afghanistan,Angola,Anguilla,Albania,Andorra,United Arab Emirates,Argentina,Armenia,Antigua and Barbuda,Australia,Austria,Azerbaijan,Burundi,Belgium</p>
+<p>Available options : Aruba,&nbsp;&nbsp;Afghanistan,&nbsp;&nbsp;Angola,&nbsp;&nbsp;Anguilla,&nbsp;&nbsp;Albania,&nbsp;&nbsp;Andorra,&nbsp;&nbsp;United Arab Emirates,&nbsp;&nbsp;Argentina,&nbsp;&nbsp;Armenia,&nbsp;&nbsp;Antigua and Barbuda,&nbsp;&nbsp;Australia,&nbsp;&nbsp;Austria,&nbsp;&nbsp;Azerbaijan,&nbsp;&nbsp;Burundi,&nbsp;&nbsp;Belgium</p>
 <!--{{ dicts }}
 {{ dicts['latitude'] }}
 {{ dicts['longitude'] }}-->
