@@ -6,21 +6,14 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
 </head>
-<title><h3>Welcome to Corona Records Tracking</h3></title>
+<title>WeCorona Records Tracking</title>
 
 <body style='margin: 0;  padding-top: 20px; padding-bottom: 70px;'>
-  <!-- Navbar -->
     <nav style='padding-top: 20px;' class="navbar navbar-centre navbar-default">
       <div class="container">
-        <!--<div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Me</a>
-        </div> -->
         <div class="collapse navbar-collapse">
           Welcome to my Updates platform
         </div>
@@ -35,7 +28,7 @@
                 <div class="form-inline">
                     <div class="col-md-12 form-group">
                         <label class="col-sm-1 col-form-label">Country</label>
-                        <input style="width:250px;" type="text" id="country" name="country" class="form-control" placeholder="Type the Country's Nmae" class="form-control">
+                        <input style="width:250px;" type="text" name="country" class="form-control" placeholder="Type the Country's Name">
                         <input type="submit" class="btn btn-info" value="Show Country">
                     </div>
                 </div>
@@ -63,6 +56,7 @@
 	// Obtain the default map types from the platform object
       var maptypes = platform.createDefaultLayers();
 
+
       // Instantiate (and display) a map object:
       var map = new H.Map(
         document.getElementById('mapContainer'),
@@ -72,10 +66,26 @@
           center: { lat: lat, lng: long }
         });
 
-	var marker = new H.map.Marker({ lat: lat, lng: long });
+	//var marker = new H.map.Marker({ lat: lat, lng: long });
+  var ui = H.ui.UI.createDefault(map, maptypes, 'de-DE');
+
+
+  // Create an info bubble object at a specific geographic location:
+  var bubble = new H.ui.InfoBubble({ lng:  long, lat: lat }, {
+                  content: '<b> Country:' + data.location + '</b>'
+
+               });
+
+  // Add info bubble to the UI:
+  ui.addBubble(bubble);
+
+
+
 
 	// Add the marker to the map:
-	map.addObject(marker);
+	//map.addObject(marker);
+
+
 
 </script>
 </body>

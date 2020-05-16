@@ -21,7 +21,7 @@ from json import dumps
 import pandas as pd
 import csv
 
-dicts = {'latitude': '0', 'longitude': '0'}
+dicts = { 'latitude': '0', 'longitude': '0'}
 
 app = application = bottle.default_app()
 
