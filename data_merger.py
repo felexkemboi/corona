@@ -1,6 +1,6 @@
 import bottle
 from bottle import route, run, response ,static_file,get, post, request,template,redirect
-
+import os
 
 
 
@@ -68,4 +68,7 @@ def getCountry():
     #response.content_type = 'application/json'
     redirect("/")
 
-run(host='localhost', port=8000, debug=True)
+if os.environ.get('APP_LOCATION') == 'heroku':
+    run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+else:
+    run(host='localhost', port=8000, debug=True)
