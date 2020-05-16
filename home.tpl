@@ -40,7 +40,7 @@
         document.getElementById('mapContainer'),
         maptypes.vector.normal.map,
         {
-          zoom: 10,
+          zoom: 4,
           center: { lat: lat, lng: long }
         });
 
