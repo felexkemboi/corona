@@ -38,7 +38,7 @@
     </div>
     </div>
 </form>
-<p>Available options : Aruba,&nbsp;&nbsp;Afghanistan,&nbsp;&nbsp;Angola,&nbsp;&nbsp;Anguilla,&nbsp;&nbsp;Albania,&nbsp;&nbsp;Andorra,&nbsp;&nbsp;United Arab Emirates,&nbsp;&nbsp;Argentina,&nbsp;&nbsp;Armenia,&nbsp;&nbsp;Antigua and Barbuda,&nbsp;&nbsp;Australia,&nbsp;&nbsp;Austria,&nbsp;&nbsp;Azerbaijan,&nbsp;&nbsp;Burundi,&nbsp;&nbsp;Belgium</p>
+<p><i>Available options : Aruba,&nbsp;&nbsp;Afghanistan,&nbsp;&nbsp;Angola,&nbsp;&nbsp;Anguilla,&nbsp;&nbsp;Albania,&nbsp;&nbsp;Andorra,&nbsp;&nbsp;United Arab Emirates,&nbsp;&nbsp;Argentina,&nbsp;&nbsp;Armenia,&nbsp;&nbsp;Antigua and Barbuda,&nbsp;&nbsp;Australia,&nbsp;&nbsp;Austria,&nbsp;&nbsp;Azerbaijan,&nbsp;&nbsp;Burundi,&nbsp;&nbsp;Belgium</i></p>
   </div>
 <div style="width: 100%; height: 100%" id="mapContainer"></div>
 
