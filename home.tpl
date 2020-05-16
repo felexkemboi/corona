@@ -28,7 +28,7 @@
                 <div class="form-inline">
                     <div class="col-md-12 form-group">
                         <label class="col-sm-1 col-form-label">Country</label>
-                        <input style="width:250px;" type="text" name="country" class="form-control" placeholder="Type the Country's Name">
+                        <input style="width:350px;" type="text" name="country" class="form-control" placeholder="Type the Country's Name from the options below">
                         <input type="submit" class="btn btn-info" value="Show Country">
                     </div>
                 </div>
