@@ -107,4 +107,7 @@ if __name__ == '__main__':
 
     app.install(JSONModelPlugin("trees.json"))
 
-    run(app=app, debug=True, reloader=True, port=8010)
+    if os.environ.get('APP_LOCATION') == 'heroku':
+        run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    else:
+        run(app=app, debug=True, reloader=True, port=8010)
