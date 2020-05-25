@@ -1,0 +1,147 @@
+<html>
+<head>
+
+<link rel="stylesheet" href="/static/css/style.css" type="text/css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet"/>
+<!-- Include Handlebars from a CDN -->
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="/static/js/main.js" type=module defer></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+function show(a,x,y,z,b,c) {
+  console.log(a,x,y,z,b,c)
+  document.getElementById(a).style.display='block'
+  document.getElementById(x).style.display='none';
+  document.getElementById(y).style.display='none';
+  document.getElementById(z).style.display='none';
+  document.getElementById(b).style.display='none';
+  document.getElementById(c).style.display='none';
+  axios.get('http://127.0.0.1:8010/api/users').then(response => {
+            const users = response.data;
+            let content ="<table class='table'>";
+              content += "<thead>";
+              content += " <tr>";
+              content +=  "<th scope='col'>Id</th>";
+              content += " <th scope='col'>First Name</th>";
+              content += "<th scope='col'>Last Name</th>";
+              content += "<th scope=col'>Email</th>";
+              content += "<th scope=col'>Avatar</th>";
+              content += " </tr>";
+              content += "</thead>";
+              content += "<tbody>";
+                for ( let item of  users) {
+                  console.log(item);
+              content +=  " <tr>";
+              /*content += " <th scope='row'>1</th>"; */
+              content += " <td>" + item.id + "</td>";
+              content += " <td>" + item.first_name + "</td>";
+              content +=  " <td>" + item.last_name + "</td>";
+              content += " <td>" + item.email + "</td>";
+              content += " <td>" + item.avatar + "</td>";
+
+              content += "  </tr>";
+              }
+              content += "  </tbody>";
+              content += "</table>";
+             document.getElementById("users").innerHTML = content;
+        })
+        .catch(error => console.error(error));
+
+        axios.get('http://127.0.0.1:8010/api/observations').then(response => {
+          const observations = response.data;
+          console.log(observations)
+          let content ="<table class='table'>";
+            content += "<thead>";
+            content += " <tr>";
+            content +=  "<th scope='col'>Id</th>";
+            content += " <th scope='col'>Bark Colour</th>";
+            content += "<th scope='col'>  Bark Texture</th>";
+            content += "<th scope=col'>Girth</th>";
+            content += "<th scope=col'>Height</th>";
+
+            content +=  "<th scope='col'>Leaf Size</th>";
+            content += " <th scope='col'>Leaf Shape</th>";
+            content += "<th scope='col'>  Location</th>";
+            content += "<th scope=col'>Participant</th>";
+            content += "<th scope=col'>Temperature</th>";
+            content += "<th scope='col'>Timestamp</th>";
+            content += "<th scope=col'>Weather</th>";
+            content += "<th scope=col'>Wind</th>";
+
+            content += " </tr>";
+            content += "</thead>";
+            content += "<tbody>";
+              for ( let item of  observations) {
+                console.log(item);
+            content +=  " <tr>";
+            /*content += " <th scope='row'>1</th>"; */
+            content += " <td>" + item.id + "</td>";
+            content += " <td>" + item.bark_colour + "</td>";
+            content +=  " <td>" + item.bark_texture + "</td>";
+            content += " <td>" + item.girth + "</td>";
+            content += " <td>" + item.height + "</td>";
+
+            content += " <td>" + item.leaf_shape + "</td>";
+            content += " <td>" + item.leaf_shape + "</td>";
+            content +=  " <td>" + item.location + "</td>";
+            content += " <td>" + item.participant + "</td>";
+            content += " <td>" + item.temperature + "</td>";
+            content +=  " <td>" + item.timestamp + "</td>";
+            content += " <td>" + item.weather + "</td>";
+            content += " <td>" + item.wind + "</td>";
+
+            content += "  </tr>";
+            }
+            content += "  </tbody>";
+            content += "</table>";
+           document.getElementById('observations').innerHTML = content;
+      })
+      .catch(error => console.error(error));
+}
+</script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!--<a class="navbar-brand" href="#">Navbar</a>-->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <button type="button" class="btn btn-light" onclick="return show('home','users','observations','submit','observationdetails','userdetails');">Home</button>
+        <button type="button" class="btn btn-light" onclick="return show('users','home','observations','submit','observationdetails','userdetails');">Users</button>
+        <button type="button" class="btn btn-light" onclick="return show('observations','users','home','submit','observationdetails','userdetails');">Observations</button>
+        <button type="button" class="btn btn-light" onclick="return show('submit','observations','users','home','observationdetails','userdetails');">Submit an observation</button>
+
+        <button type="button" class="btn btn-light" onclick="return show('userdetails','users','home','observations','submit','observationdetails');">User Details</button>
+        <button type="button" class="btn btn-light" onclick="return show('observationdetails','observations','users','home','submit','userdetails');">Observation Details</button>
+
+      </div>
+  </nav>
+
+  <div id="home" style="display:block">
+    Home
+  </div>
+  <div id="users" style="display:none">
+    <h3>Users</h3>
+  </div>
+  <div id="observations" style="display:none">
+    <h3>Observations</h3>
+  </div>
+  <div id="submit" style="display:none">
+    New Observation
+  </div>
+  <div id="userdetails" style="display:none">
+    <h3>User Details</h3>
+  </div>
+  <div id="observationdetails" style="display:none">
+    <h3>Observation Details</h3>
+  </div>
+</body>
+</html>

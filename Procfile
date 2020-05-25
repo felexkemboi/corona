@@ -1,1 +1,1 @@
-web: python data_merger.py
+web: python main.py
