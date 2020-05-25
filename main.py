@@ -7,6 +7,21 @@ from jsonmodel import JSONModelPlugin
 app = Bottle()
 
 
+_allow_origin = '*'
+#_allow_methods = 'PUT, GET, POST, DELETE, OPTIONS'
+_allow_methods = '*'
+
+#_allow_headers = 'Authorization, Origin, Accept, Content-Type, X-Requested-With'
+_allow_headers = '*'
+
+@app.hook('after_request')
+def enable_cors():
+    '''Add headers to enable CORS'''
+
+    response.headers['Access-Control-Allow-Origin'] = _allow_origin
+    response.headers['Access-Control-Allow-Methods'] = _allow_methods
+    response.headers['Access-Control-Allow-Headers'] = _allow_headers
+
 def url(path):
 
     return 'http://' + request.urlparts[1] + path
@@ -54,16 +69,18 @@ def get_observation(model, id):
     else:
         return obs
 
-@app.post('/api/observations')
-def create_observation(model):
+@app.post('/api/observations/<form>')
+def create_observation(model,form):
     """Handle POST to create new observation"""
 
 
     fields = ['participant', 'temperature', 'weather', 'wind',
                 'height', 'girth', 'location',
                 'leaf_size', 'leaf_shape', 'bark_colour', 'bark_texture']
+    data = {"participant":"kemboi","temperature":"2","weather":"kemboi","wind":"2","height":"kemboi","girth":"kemboi","location":"kemboi","leaf_size":"kemboi","leaf_shape":"kemboi","bark_texture":"kemboi","bark_color":"56"}
 
-    data = {}
+    #data = {}
+    print(form)
     # copy over form fields to data, don't worry about missing fields,
     # since add_observation will warn about them
     for field in fields:
@@ -72,7 +89,8 @@ def create_observation(model):
 
     result = model.add_observation(data)
 
-    return result
+    #return result
+    return data
 
 @app.get('/api/users', name='users')
 def list_users(model):
