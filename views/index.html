@@ -16,16 +16,29 @@
 
     <header>
       <div id="logo"></div>
-      <nav>
+      <!--<nav>
           <ul>
               <li><a href="#">Home</a></li>
               <li><a href="#!/users">Users</a></li>
               <li><a href="#!/observations">Observations</a></li>
               <li><a href="#!/submit">Submit an observation</a></li>
           </ul>
+      </nav> -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!--<a class="navbar-brand" href="#">Navbar</a>-->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <button type="button" class="btn btn-light" onclick="Home()">Home</button>
+            <button type="button" class="btn btn-light">Users</button>
+            <button type="button" class="btn btn-light">Observations</button>
+            <button type="button" class="btn btn-light">Submit an observation</button>
+
+          </div>
+        </div>
       </nav>
     </header>
-
     <div id="content">
 
       <div id="heading">
@@ -58,5 +71,11 @@
 
     <p id="copyright">All content and images subject to copyright &copy; COMP2110 Citizen Science 2020.</p>
   </footer>
+  <script type="text/javascript">
+  function Home(){
+    console.log("losded home")
+    window.location.href = "#users.html";
+  }
+  </script>
   </body>
 </html>
