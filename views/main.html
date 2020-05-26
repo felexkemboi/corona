@@ -11,12 +11,19 @@
 <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-<script src="/static/js/main.js" type=module defer></script>
+<!--<script src="/static/js/form.js" type=module defer></script>-->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script>
-function show(a,x,y,z,b,c) {
-  console.log(a,x,y,z,b,c)
+
+function reset(){
+  axios.get('http://127.0.0.1:8010/api/reset').then(response => {
+      console.log(response)
+        })
+        .catch(error => console.error(error));
+}
+
+function show(a,x,y,z,b,c,id=78,obs = 3) {
   document.getElementById(a).style.display='block'
   document.getElementById(x).style.display='none';
   document.getElementById(y).style.display='none';
@@ -37,9 +44,7 @@ function show(a,x,y,z,b,c) {
               content += "</thead>";
               content += "<tbody>";
                 for ( let item of  users) {
-                  console.log(item);
               content +=  " <tr>";
-              /*content += " <th scope='row'>1</th>"; */
               content += " <td>" + item.id + "</td>";
               content += " <td>" + item.first_name + "</td>";
               content +=  " <td>" + item.last_name + "</td>";
@@ -54,9 +59,8 @@ function show(a,x,y,z,b,c) {
         })
         .catch(error => console.error(error));
 
-        axios.get('http://127.0.0.1:8010/api/observations').then(response => {
+  axios.get('http://127.0.0.1:8010/api/observations').then(response => {
           const observations = response.data;
-          console.log(observations)
           let content ="<table class='table'>";
             content += "<thead>";
             content += " <tr>";
@@ -79,7 +83,6 @@ function show(a,x,y,z,b,c) {
             content += "</thead>";
             content += "<tbody>";
               for ( let item of  observations) {
-                console.log(item);
             content +=  " <tr>";
             /*content += " <th scope='row'>1</th>"; */
             content += " <td>" + item.id + "</td>";
@@ -104,12 +107,27 @@ function show(a,x,y,z,b,c) {
            document.getElementById('observations').innerHTML = content;
       })
       .catch(error => console.error(error));
+
+  axios.get('http://127.0.0.1:8010/api/users/' +id).then(response => {
+        const user = response.data;
+        let content ="<div class='row justify-content-center'><p><b>Name:</b> " +user.first_name +"&nbsp;  " +user.last_name +"&nbsp; &nbsp; <br><b>Avatar:</b></b> " +user.avatar +" &nbsp;<br><b>Email:</b>" +user.email +"&nbsp;<br><b>ID:</b>" +user.id +"</p></div>"
+          document.getElementById('userdetails').innerHTML = content;
+        })
+        .catch(error => console.error(error));
+
+  axios.get('http://127.0.0.1:8010/api/observations/' +obs).then(response => {
+        const observation = response.data;
+        let content2 = observation.participant
+        let content ="<div class='row justify-content-center'><p><b>Bark Color:</b> " +observation.bark_colour +"&nbsp;<br><b>Bark Texture:</b></b> " +observation.bark_texture +" &nbsp;<br><b>Girth:</b>" +observation.girth +"&nbsp;<br> <b>ID:</b>" +observation.id +"&nbsp;<br><b>Height:</b>" +observation.height +"&nbsp;<br><b>Leaf Shape:</b>" +observation.leaf_shape +"&nbsp;<br><b>Location:</b>" +observation.location +"&nbsp;<br><b>Leaf Size:</b>" +observation.leaf_size +"&nbsp;<br> <b>Participant:</b>" +content2 +"&nbsp;<br>  </p></div>"
+           document.getElementById('observationdetails').innerHTML = content;
+        })
+        .catch(error => console.error(error));
+
 }
 </script>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <!--<a class="navbar-brand" href="#">Navbar</a>-->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -121,6 +139,8 @@ function show(a,x,y,z,b,c) {
 
         <button type="button" class="btn btn-light" onclick="return show('userdetails','users','home','observations','submit','observationdetails');">User Details</button>
         <button type="button" class="btn btn-light" onclick="return show('observationdetails','observations','users','home','submit','userdetails');">Observation Details</button>
+        <button type="button" class="btn btn-light" onclick="return reset();">Reset Database</button>
+
 
       </div>
   </nav>
@@ -128,20 +148,83 @@ function show(a,x,y,z,b,c) {
   <div id="home" style="display:block">
     Home
   </div>
+
   <div id="users" style="display:none">
     <h3>Users</h3>
   </div>
+
   <div id="observations" style="display:none">
     <h3>Observations</h3>
   </div>
+
   <div id="submit" style="display:none">
-    New Observation
+    <div class='row justify-content-center'>
+      <form id="form" method="POST" action="/api/observations">
+        <div class="form-group">
+          <label>Participant</label>
+          <input type="text" class="form-control" name="participant" id="participant"   placeholder="participant"required>
+        </div>
+        <div class="form-group">
+          <label>Temperature</label>
+          <input type="text" class="form-control" name="temperature" id="temperature" placeholder="temperature" required>
+        </div>
+
+        <div class="form-group">
+          <label>Weather</label>
+          <input type="text" class="form-control" name="weather" id="weather" placeholder="Weather" required>
+        </div>
+
+        <div class="form-group">
+          <label>Wind</label>
+          <input type="text" class="form-control"name="wind" id="wind" placeholder="Wind" required>
+        </div>
+
+        <div class="form-group">
+          <label>Height</label>
+          <input type="text" class="form-control" name="height" id="height" placeholder="height" required>
+        </div>
+        <div class="form-group">
+          <label>Girth</label>
+          <input type="text" class="form-control" name="girth" id="girth" placeholder="girth" required>
+        </div>
+
+        <div class="form-group">
+          <label>Location</label>
+          <input type="text" class="form-control" name="location" id="location" placeholder="location" required>
+        </div>
+
+        <div class="form-group">
+          <label>Leaf Size</label>
+          <input type="text" class="form-control" name="leaf_size" id="leaf_size" placeholder="leaf_size" required>
+        </div>
+
+        <div class="form-group">
+          <label>Leaf Shape</label>
+          <input type="text" class="form-control" name="leaf_shape" id="leaf_shape" placeholder="leaf_shape" required>
+        </div>
+
+        <div class="form-group">
+          <label>Bark Texture</label>
+          <input type="text" class="form-control" name="bark_texture" id="bark_texture" placeholder="bark_texture" required>
+        </div>
+
+        <div class="form-group">
+          <label>Bark Colour</label>
+          <input type="text" class="form-control" name="bark_colour" id="bark_colour" placeholder="bark_color" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
   </div>
+
   <div id="userdetails" style="display:none">
     <h3>User Details</h3>
   </div>
+
   <div id="observationdetails" style="display:none">
     <h3>Observation Details</h3>
   </div>
+
 </body>
 </html>

@@ -7,6 +7,7 @@ from jsonmodel import JSONModelPlugin
 app = Bottle()
 
 
+
 _allow_origin = '*'
 #_allow_methods = 'PUT, GET, POST, DELETE, OPTIONS'
 _allow_methods = '*'
@@ -29,6 +30,7 @@ def url(path):
 @app.route('/')
 def index():
     """Deliver the index page as a static file"""
+
 
     return static_file("main.html", root=os.path.join(os.path.dirname(__file__), "views"))
 
@@ -69,28 +71,26 @@ def get_observation(model, id):
     else:
         return obs
 
-@app.post('/api/observations/<form>')
-def create_observation(model,form):
+
+
+@app.post('/api/observations',method='POST')
+def create_observation(model):
     """Handle POST to create new observation"""
 
+    fields = ['participant', 'temperature', 'weather', 'wind','height', 'girth', 'location','leaf_size', 'leaf_shape', 'bark_colour', 'bark_texture']
 
-    fields = ['participant', 'temperature', 'weather', 'wind',
-                'height', 'girth', 'location',
-                'leaf_size', 'leaf_shape', 'bark_colour', 'bark_texture']
-    data = {"participant":"kemboi","temperature":"2","weather":"kemboi","wind":"2","height":"kemboi","girth":"kemboi","location":"kemboi","leaf_size":"kemboi","leaf_shape":"kemboi","bark_texture":"kemboi","bark_color":"56"}
+    data = {}
 
-    #data = {}
-    print(form)
-    # copy over form fields to data, don't worry about missing fields,
-    # since add_observation will warn about them
+    print(request.forms.get('temperature'))#.strip
+
+
     for field in fields:
         if field in request.forms and request.forms.get(field) != "":
             data[field] = request.forms.get(field)
 
     result = model.add_observation(data)
 
-    #return result
-    return data
+    return result
 
 @app.get('/api/users', name='users')
 def list_users(model):
