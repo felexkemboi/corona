@@ -32,7 +32,7 @@ def index():
     """Deliver the index page as a static file"""
 
 
-    return static_file("main.html", root=os.path.join(os.path.dirname(__file__), "views"))
+    return static_file("index.html", root=os.path.join(os.path.dirname(__file__), "views"))
 
 @app.get('/api/reset', name='reset')
 def api_reset(model):
